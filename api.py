@@ -17,7 +17,7 @@ import jwt
 # --- Config ------------------------------------------------------------------------------------
 
 params = urllib.parse.quote_plus(
-    "DRIVER={SQL Server};SERVER=xamdb.database.windows.net;DATABASE=XamarinDB;UID=vitalijusal9367;PWD=mariukas1A.")
+    "DRIVER={ODBC Driver 17 for SQL Server};SERVER=xamdb.database.windows.net;DATABASE=XamarinDB;UID=vitalijusal9367;PWD=mariukas1A.")
 
 app = Flask(__name__)
 api = Api(app)
@@ -349,7 +349,3 @@ def login():
         return jsonify({'token': token.decode('UTF-8')})
 
     return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm=login required!'})
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port='5000')

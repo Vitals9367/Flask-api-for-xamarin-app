@@ -37,7 +37,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     public_id = db.Column(db.String(300), unique=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
-    email = db.Column(db.String(10), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(300), nullable=False)
     info = db.relationship(
         "User_Info", cascade="all, delete-orphan", uselist=False, backref="user")

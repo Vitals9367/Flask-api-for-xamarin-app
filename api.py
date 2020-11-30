@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from dataclasses import dataclass
 from sqlalchemy import schema
+from marshmallow_sqlalchemy import ModelSchema
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 from sqlalchemy.orm import backref
@@ -159,13 +160,16 @@ class Reviews(db.Model):
 class CartItemSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Cart_Items
+        include_fk = True
         load_instance = True
 
 
 class DefinedItemSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Defined_Items
+        include_relationships = True
         load_instance = True
+    CartItem = ma.Nested(CartItemSchema)
 
 
 class CartSchema(ma.SQLAlchemyAutoSchema):
@@ -213,11 +217,22 @@ def token_required(f):
 # --- Cart Routes ------------------------------------------------------------------------------------
 
 
+@app.route('/api/user/defined_items', methods=['GET'])
+def get_user_defined_items():
+
+    result = Defined_Items.query.all()
+
+    schema = DefinedItemSchema(many=True)
+    output = schema.dump(result)
+
+    return jsonify(output), 200
+
+
 @app.route('/api/user/cart_items', methods=['GET'])
 @token_required
 def get_user_cart_items(current_user):
 
-    result = Cart_Items.query.filter_by(cart_id=current_user.cart_id).all()
+    result = Cart_Items.query.filter_by(cart_id=current_user.cart.id).all()
 
     schema = CartItemSchema(many=True)
     output = schema.dump(result)

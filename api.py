@@ -160,34 +160,42 @@ class Reviews(db.Model):
 class CartItemSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Cart_Items
-        include_fk = True
+        sqla_session = db.session
         load_instance = True
+        include_relationships = True
 
 
 class DefinedItemSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Defined_Items
-        include_relationships = True
+        sqla_session = db.session
         load_instance = True
-    CartItem = ma.Nested(CartItemSchema)
+        include_relationships = True
+    cart_item_id = fields.Nested(CartItemSchema)
 
 
 class CartSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Cart
+        sqla_session = db.session
         load_instance = True
+        include_relationships = True
 
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
+        sqla_session = db.session
         load_instance = True
+        include_relationships = True
 
 
 class ProductSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Item
+        sqla_session = db.session
         load_instance = True
+        include_relationships = True
 
 # --- Authentication decorator -------------------------------------------------------------------------
 

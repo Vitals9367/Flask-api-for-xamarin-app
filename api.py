@@ -274,7 +274,7 @@ def get_all_products():
     return jsonify(output), 200
 
 
-@app.route('api/product/addtocart', methods=['POST'])
+@app.route('/api/product/addtocart', methods=['POST'])
 @token_required
 def add_to_cart(current_user):
 

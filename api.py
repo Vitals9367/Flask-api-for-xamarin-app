@@ -274,6 +274,32 @@ def get_all_products():
     return jsonify(output), 200
 
 
+@app.route('api/product/addtocart', methods=['POST'])
+@token_required
+def add_to_cart(current_user):
+
+    data = request.get_json()
+    item_id = data["item_id"]
+    size = data["selectedSize"]
+    amount = data["selectedAmount"]
+
+    if item_id is not None or size is not None or amount is None:
+
+        def_item = Defined_Items(
+            item_id=item_id, size=size, amount=int(amount))
+        db.session.add(def_item)
+        db.session.commit()
+
+        new_cart_item = Cart_Items(
+            cart_id=current_user.cart.id, defined_item_id=def_item.id)
+        db.session.add(new_cart_item)
+        db.session.commit()
+
+        return jsonify({"message": "Item has been added to the cart!"}), 200
+    else:
+        return jsonify({"message": "Error!"}), 400
+
+
 @app.route('/api/product/<int:item_id>', methods=['GET'])
 def get_product(item_id):
     result = Item.query.filter_by(id=item_id).first()

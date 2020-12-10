@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, make_response
+from flask.globals import session
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
@@ -260,6 +261,25 @@ def add_item_to_cart(current_user, item_id):
     db.session.commit()
 
     return jsonify({"message": "Item was added to cart!"}), 200
+
+
+@app.route('/api/user/delete_cart_item', methods=['DELETE'])
+@token_required
+def delete_user_cart_item(current_user):
+
+    data = request.get_json()
+    item_id = data["item_id"]
+
+    result = Cart_Items.query.filter_by(
+        cart_id=current_user.cart.id, id=item_id).first()
+
+    if result:
+        db.session.delete(result)
+        db.session.commit()
+        return jsonify({"message": "Item has been removed from cart!"}), 200
+    else:
+        return jsonify({"message": "Item not found!"}), 404
+
 
 # --- Product Routes ------------------------------------------------------------------------------------
 

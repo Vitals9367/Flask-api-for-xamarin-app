@@ -299,9 +299,9 @@ def delete_user_cart_item(current_user):
 # --- Order item Routes ------------------------------------------------------------------------------------
 
 
-@app.route('/api/user/order_items', methods=['GET'])
+@app.route('/api/user/orders', methods=['GET'])
 @token_required
-def get_user_order_items(current_user):
+def get_user_orders(current_user):
 
     result = Orders.query.filter_by(user_id=current_user.id).all()
 

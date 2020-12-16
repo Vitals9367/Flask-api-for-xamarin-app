@@ -198,6 +198,22 @@ class ProductSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
 
+
+class OrdersSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Orders
+        sqla_session = db.session
+        load_instance = True
+        include_relationships = True
+
+
+class OrderItemsSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Order_Items
+        sqla_session = db.session
+        load_instance = True
+        include_relationships = True
+
 # --- Authentication decorator -------------------------------------------------------------------------
 
 
@@ -279,6 +295,20 @@ def delete_user_cart_item(current_user):
         return jsonify({"message": "Item has been removed from cart!"}), 200
     else:
         return jsonify({"message": "Item not found!"}), 404
+
+# --- Order item Routes ------------------------------------------------------------------------------------
+
+
+@app.route('/api/user/order_items', methods=['GET'])
+@token_required
+def get_user_order_items(current_user):
+
+    result = Orders.query.filter_by(user_id=current_user.id).all()
+
+    schema = OrdersSchema(many=True)
+    output = schema.dump(result)
+
+    return jsonify(output), 200
 
 
 # --- Product Routes ------------------------------------------------------------------------------------

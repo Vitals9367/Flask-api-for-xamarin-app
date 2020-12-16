@@ -166,13 +166,11 @@ class CartItemSchema(ma.SQLAlchemyAutoSchema):
         include_relationships = True
 
 
-class DefinedItemSchema(ma.SQLAlchemyAutoSchema):
+class DefinedItemSchema(schema):
     class Meta:
-        model = Defined_Items
         sqla_session = db.session
         load_instance = True
-        include_relationships = True
-    cart_item_id = fields.Nested(CartItemSchema)
+        size = fields.str()
 
 
 class CartSchema(ma.SQLAlchemyAutoSchema):

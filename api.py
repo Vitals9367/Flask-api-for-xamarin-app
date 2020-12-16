@@ -239,13 +239,19 @@ def token_required(f):
     return decorated
 
 
-# --- Cart Routes ------------------------------------------------------------------------------------
+# --- Image Routes ------------------------------------------------------------------------------------
 
 @app.route('/image', methods=['GET'])
 def get_image():
 
-    return send_file("img/Jacket/black.jpg", mimetype='image/gif')
+    type = request.args.get('type', None)
+    photo = request.args.get('photo', None)
 
+    url = "img/" + type + "/" + photo + ".jpg"
+    return send_file(url, mimetype='image/gif')
+
+
+# --- Cart Routes ------------------------------------------------------------------------------------
 
 @app.route('/api/user/defined_items', methods=['GET'])
 def get_user_defined_items():

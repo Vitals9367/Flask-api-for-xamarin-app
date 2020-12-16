@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, make_response
+from flask import Flask, jsonify, request, make_response, send_file
 from flask.globals import session
 from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
 from flask_sqlalchemy import SQLAlchemy
@@ -240,6 +240,11 @@ def token_required(f):
 
 
 # --- Cart Routes ------------------------------------------------------------------------------------
+
+@app.route('/image', methods=['GET'])
+def get_image():
+
+    return send_file("img/Jacket/black.jpg", mimetype='image/gif')
 
 
 @app.route('/api/user/defined_items', methods=['GET'])

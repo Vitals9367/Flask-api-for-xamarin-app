@@ -290,6 +290,14 @@ def add_item_to_cart(current_user, item_id):
     return jsonify({"message": "Item was added to cart!"}), 200
 
 
+@app.route('/test', methods=['DELETE'])
+def test():
+
+    data = request.get_json()
+
+    return jsonify({"message": data}), 200
+
+
 @app.route('/api/user/delete_cart_item', methods=['DELETE'])
 @token_required
 def delete_user_cart_item(current_user):

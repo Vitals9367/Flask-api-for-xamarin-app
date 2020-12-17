@@ -295,17 +295,17 @@ def add_item_to_cart(current_user, item_id):
 def delete_user_cart_item(current_user):
 
     data = request.get_json()
-    item_id = data["item_id"]
+    items = data["items"]
 
-    result = Cart_Items.query.filter_by(
-        cart_id=current_user.cart.id, id=item_id).first()
+    for item in items:
+        result = Cart_Items.query.filter_by(
+            cart_id=current_user.cart.id, id=item["id"]).first()
 
-    if result:
-        db.session.delete(result)
-        db.session.commit()
-        return jsonify({"message": "Item has been removed from cart!"}), 200
-    else:
-        return jsonify({"message": "Item not found!"}), 404
+        if result:
+            db.session.delete(result)
+            db.session.commit()
+
+    return jsonify({"message": "Items has been removed from cart!"}), 200
 
 # --- Order item Routes ------------------------------------------------------------------------------------
 

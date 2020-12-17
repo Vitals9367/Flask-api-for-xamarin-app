@@ -303,7 +303,7 @@ def test():
 def delete_user_cart_item(current_user):
 
     data = request.get_json()
-    items = data["items"]
+    items = data["item"]
 
     for item in items:
         result = Cart_Items.query.filter_by(

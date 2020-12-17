@@ -214,6 +214,14 @@ class OrderItemsSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
 
+
+class UserInfoSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = User_Info
+        sqla_session = db.session
+        load_instance = True
+        include_relationships = True
+
 # --- Authentication decorator -------------------------------------------------------------------------
 
 
@@ -446,8 +454,45 @@ def create_user():
     else:
         return jsonify({'message': 'User already exists!'}), 401
 
-# --- Login Route ------------------------------------------------------------------------------------
+# --- UserInfo Routes ------------------------------------------------------------------------------------
 
+
+@app.route('/api/user_info', methods=['GET'])
+@token_required
+def get_info(current_user):
+    result = User_Info.query.filter_by(user_id=current_user.id).first()
+
+    if result:
+        schema = UserInfoSchema()
+        output = schema.dump(result)
+
+        return jsonify(output), 200
+    else:
+        return jsonify({'message': 'Info not found!'}), 404
+
+
+@app.route('/api/user_info/update', methods=['PUT'])
+@token_required
+def update_info(current_user):
+
+    data = request.get_json()
+    info = User_Info.query.filter_by(user_id=current_user.id).first()
+
+    if info:
+
+        info.first_name = data["first_name"]
+        info.last_name = data["last_name"]
+        info.phone_number = data["phone_number"]
+        info.address = data["address"]
+        db.session.commit()
+
+        return jsonify({'message': 'Info Updated!'}), 201
+
+    else:
+        return jsonify({'message': 'Server error!'}), 401
+
+
+# --- Login Route ------------------------------------------------------------------------------------
 
 @ app.route('/login')
 def login():

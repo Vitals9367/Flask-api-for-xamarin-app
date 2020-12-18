@@ -207,7 +207,7 @@ class OrderItemsSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
 
-    defined_item = ma.Nested(DefinedItemSchema, many=True)
+    defined_item = ma.Nested(DefinedItemSchema, many=False)
 
 
 class OrdersSchema(ma.SQLAlchemyAutoSchema):

@@ -283,7 +283,7 @@ def get_user_cart_items(current_user):
 
     result = Cart_Items.query.filter_by(cart_id=current_user.cart.id).all()
 
-    schema = CartItemSchema(many=True, exclude=["cart", "cart_item_id", "id"])
+    schema = CartItemSchema(many=True, exclude=["cart"])
     output = schema.dump(result)
 
     return jsonify(output), 200

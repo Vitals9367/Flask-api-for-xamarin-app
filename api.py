@@ -199,6 +199,14 @@ class ProductSchema(ma.SQLAlchemyAutoSchema):
         include_relationships = True
 
 
+class OrderItemsSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Order_Items
+        sqla_session = db.session
+        load_instance = True
+        include_relationships = True
+
+
 class OrdersSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Orders
@@ -206,13 +214,7 @@ class OrdersSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
 
-
-class OrderItemsSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Order_Items
-        sqla_session = db.session
-        load_instance = True
-        include_relationships = True
+    Order_Items = ma.Nested(OrderItemsSchema, many=True)
 
 
 class UserInfoSchema(ma.SQLAlchemyAutoSchema):
@@ -336,7 +338,6 @@ def get_user_orders(current_user):
     output = schema.dump(result)
 
     return jsonify(output), 200
-
 
 # --- Product Routes ------------------------------------------------------------------------------------
 

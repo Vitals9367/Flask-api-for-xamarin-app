@@ -158,21 +158,21 @@ class Reviews(db.Model):
 # --- Schemas -------------------------------------------------------------------------
 
 
-class CartItemSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Cart_Items
-        sqla_session = db.session
-        load_instance = True
-        include_relationships = True
-
-
 class DefinedItemSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Defined_Items
         sqla_session = db.session
         load_instance = True
         include_relationships = True
-    cart_item_id = fields.Nested(CartItemSchema)
+
+
+class CartItemSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Cart_Items
+        sqla_session = db.session
+        load_instance = True
+        include_relationships = True
+    defined_item_id = ma.Nested(DefinedItemSchema)
 
 
 class CartSchema(ma.SQLAlchemyAutoSchema):

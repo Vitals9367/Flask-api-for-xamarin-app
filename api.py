@@ -172,7 +172,7 @@ class DefinedItemSchema(ma.SQLAlchemyAutoSchema):
         sqla_session = db.session
         load_instance = True
         include_relationships = True
-    item = ma.Nested(ProductSchema, many=False)
+    item = ma.Nested(ProductSchema, many=False, exclude=["reviews"])
 
 
 class CartItemSchema(ma.SQLAlchemyAutoSchema):
@@ -181,7 +181,8 @@ class CartItemSchema(ma.SQLAlchemyAutoSchema):
         sqla_session = db.session
         load_instance = True
         include_relationships = True
-    defined_item = ma.Nested(DefinedItemSchema, many=False)
+    defined_item = ma.Nested(DefinedItemSchema, many=False, exclude=[
+                             "id", "cart_item_id", "order_item"])
 
 
 class CartSchema(ma.SQLAlchemyAutoSchema):

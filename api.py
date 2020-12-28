@@ -343,6 +343,25 @@ def get_user_orders(current_user):
 
     return jsonify(output), 200
 
+
+@app.route('/api/user/delete_order', methods=['DELETE'])
+@token_required
+def delete_user_order(current_user):
+
+    data = request.get_json()
+    item_id = data["item_id"]
+
+    result = Orders.query.filter_by(
+        user_id=current_user.id, id=item_id).first()
+
+    if result:
+
+        db.session.delete(result)
+        db.session.commit()
+        return jsonify({"message": "Order has been removed!"}), 200
+    else:
+        return jsonify({"message": "Order does not exist!"}), 400
+
 # --- Product Routes ------------------------------------------------------------------------------------
 
 

@@ -309,7 +309,7 @@ def test():
 
     data = request.get_json()
 
-    return jsonify({"message": data}), 200
+    return jsonify({"message": data["item"]}), 200
 
 
 @app.route('/api/user/delete_cart_item', methods=['DELETE'])

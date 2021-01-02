@@ -317,17 +317,17 @@ def test():
 def delete_user_cart_item(current_user):
 
     data = request.get_json()
-    items = data["item"]
+    id = data["item_id"]
 
-    for item in items:
-        result = Cart_Items.query.filter_by(
-            cart_id=current_user.cart.id, id=item["id"]).first()
+    result = Cart_Items.query.filter_by(
+        cart_id=current_user.cart.id, id=id).first()
 
-        if result:
-            db.session.delete(result)
-            db.session.commit()
-
-    return jsonify({"message": "Items has been removed from cart!"}), 200
+    if result:
+        db.session.delete(result)
+        db.session.commit()
+        return jsonify({"message": "Items has been removed from cart!"}), 200
+    else:
+        return jsonify({"message": "Item not found!"}), 404
 
 # --- Order item Routes ------------------------------------------------------------------------------------
 

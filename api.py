@@ -392,7 +392,7 @@ def create_user_order(current_user):
     new_order.price = amount
     db.session.commit()
 
-    schema = OrdersSchema(many=True)
+    schema = OrdersSchema(many=False)
     output = schema.dump(new_order)
 
     return jsonify(output), 200

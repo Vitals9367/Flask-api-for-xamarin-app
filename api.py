@@ -573,6 +573,28 @@ def get_reviews(item_id):
         return jsonify({'message': 'Item not found!'}), 404
 
 
+@app.route('/api/create_review', methods=['POST'])
+@token_required
+def update_info(current_user):
+
+    data = request.get_json()
+    item_id = data["item_id"]
+    rating = data["rating"]
+    comment = data["comment"]
+
+    if item_id is not None or rating is not None or comment is None:
+
+        newComment = Reviews(
+            item_id=item_id, user_id=current_user.id, comment=comment, rating=rating)
+        db.session.add(newComment)
+        db.commit()
+
+        return jsonify({'message': 'Info Updated!'}), 201
+
+    else:
+        return jsonify({'message': 'Server error!'}), 401
+
+
 # --- Login Route ------------------------------------------------------------------------------------
 
 @ app.route('/login')

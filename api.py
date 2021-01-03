@@ -391,7 +391,11 @@ def create_user_order(current_user):
 
     new_order.price = amount
     db.session.commit()
-    return jsonify(new_order), 200
+
+    schema = OrdersSchema(many=True)
+    output = schema.dump(new_order)
+
+    return jsonify(output), 200
 
 # --- Product Routes ------------------------------------------------------------------------------------
 

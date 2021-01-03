@@ -391,7 +391,7 @@ def create_user_order(current_user):
 
     new_order.price = amount
     db.session.commit()
-    return jsonify({"message": "Order has been created!", "order": new_order}), 200
+    return jsonify({"order": new_order}), 200
 
 # --- Product Routes ------------------------------------------------------------------------------------
 

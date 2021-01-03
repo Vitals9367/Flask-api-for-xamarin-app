@@ -370,6 +370,8 @@ def delete_orders():
         db.session.delete(order)
         db.session.commit()
 
+    return jsonify({"message": "Orders has been removed!"}), 200
+
 
 @app.route('/api/user/create_order', methods=['POST'])
 @token_required

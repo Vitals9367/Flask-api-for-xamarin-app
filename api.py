@@ -366,7 +366,8 @@ def delete_user_order(current_user):
 @app.route('/api/delete_orders', methods=['DELETE'])
 def delete_orders():
     orders = Orders.query.all()
-    db.session.delete(orders)
+    for order in orders:
+        db.session.delete(order)
     db.session.commit()
 
 

@@ -365,7 +365,7 @@ def delete_user_order(current_user):
 
 @app.route('/api/user/create_order', methods=['POST'])
 @token_required
-def delete_user_order(current_user):
+def create_user_order(current_user):
 
     new_order = Orders(paid=False, user_id=current_user.id)
     db.session.add(new_order)

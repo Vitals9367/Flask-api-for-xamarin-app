@@ -367,17 +367,23 @@ def delete_user_order(current_user):
 @token_required
 def create_user_order(current_user):
 
+    result = Orders.query.all()
+    db.session.delete(result)
+    db.session.commit()
+
     new_order = Orders(paid=False, user_id=current_user.id)
     db.session.add(new_order)
 
     cart_items = Cart_Items.query.filter_by(cart_id=current_user.cart.id).all()
-
+    amount = 0
     for item in cart_items:
 
         new_order_item = Order_Items(
             defined_item_id=item.id, order_id=new_order.id)
         db.session.add(new_order_item)
+        amount += item.defined_item.item.price * item.defined_item.amount
 
+    new_order.price = amount
     db.session.commit()
     return jsonify({"message": "Order has been created!"}), 200
 

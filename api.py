@@ -228,6 +228,13 @@ class UserInfoSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
 
+
+class ReviewSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Reviews
+        sqla_session = db.session
+        load_instance = True
+
 # --- Authentication decorator -------------------------------------------------------------------------
 
 
@@ -549,6 +556,21 @@ def update_info(current_user):
 
     else:
         return jsonify({'message': 'Server error!'}), 401
+
+# --- Reviews Route ------------------------------------------------------------------------------------
+
+
+@app.route('/api/reviews/product/<int:item_id>', methods=['GET'])
+def get_reviews(item_id):
+    result = Reviews.query.filter_by(item_id=item_id).all()
+
+    if result:
+        schema = ReviewSchema()
+        output = schema.dump(result)
+
+        return jsonify(output), 200
+    else:
+        return jsonify({'message': 'Item not found!'}), 404
 
 
 # --- Login Route ------------------------------------------------------------------------------------

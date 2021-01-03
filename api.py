@@ -368,7 +368,7 @@ def delete_orders():
     orders = Orders.query.all()
     for order in orders:
         db.session.delete(order)
-    db.session.commit()
+        db.session.commit()
 
 
 @app.route('/api/user/create_order', methods=['POST'])

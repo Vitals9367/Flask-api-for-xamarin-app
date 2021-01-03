@@ -362,6 +362,25 @@ def delete_user_order(current_user):
     else:
         return jsonify({"message": "Order does not exist!"}), 400
 
+
+@app.route('/api/user/create_order', methods=['POST'])
+@token_required
+def delete_user_order(current_user):
+
+    new_order = Orders(paid=False, user_id=current_user.id)
+    db.session.add(new_order)
+
+    cart_items = Cart_Items.query.filter_by(cart_id=current_user.cart.id).all()
+
+    for item in cart_items:
+
+        new_order_item = Order_Items(
+            defined_item_id=item.id, order_id=new_order.id)
+        db.session.add(new_order_item)
+
+    db.session.commit()
+    return jsonify({"message": "Order has been created!"}), 200
+
 # --- Product Routes ------------------------------------------------------------------------------------
 
 

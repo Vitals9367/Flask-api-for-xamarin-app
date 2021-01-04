@@ -269,9 +269,9 @@ def get_image():
     type_id = request.args.get('type', None)
     photo = request.args.get('photo', None)
 
-    type = Item_Type.query.filter_by(id=type_id)
+    item_type = Item_Type.query.filter_by(id=type_id).first()
 
-    url = "img/" + type.name + "/" + photo
+    url = "img/" + item_type.name + "/" + photo
     return send_file(url, mimetype='image/gif')
 
 

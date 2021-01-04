@@ -266,7 +266,7 @@ def token_required(f):
 @app.route('/image', methods=['GET'])
 def get_image():
 
-    type_id = request.args.get('type', default=1)
+    type_id = request.args.get('type', None)
     photo = request.args.get('photo', default="grey.jpg")
 
     item_type = Item_Type.query.filter_by(id=type_id).first()

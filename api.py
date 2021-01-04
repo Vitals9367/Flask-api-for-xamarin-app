@@ -575,7 +575,7 @@ def get_reviews(item_id):
 
 @app.route('/api/create_review', methods=['POST'])
 @token_required
-def update_info(current_user):
+def create_review(current_user):
 
     data = request.get_json()
     item_id = data["item_id"]

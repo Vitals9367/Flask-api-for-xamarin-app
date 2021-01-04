@@ -571,7 +571,7 @@ def get_reviews(item_id):
 
         return jsonify(output), 200
     else:
-        return jsonify({'message': 'Item not found!'}), 404
+        return jsonify({'message': 'No comments!'}), 404
 
 
 @app.route('/api/create_review', methods=['POST'])
@@ -590,7 +590,7 @@ def create_review(current_user):
         db.session.add(newComment)
         db.session.commit()
 
-        return jsonify({'message': 'Comment Written!'}), 201
+        return jsonify({'message': 'Comment Written!'}), 200
 
     else:
         return jsonify({'message': 'Server error!'}), 401

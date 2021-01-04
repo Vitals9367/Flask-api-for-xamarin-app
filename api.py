@@ -587,7 +587,7 @@ def create_review(current_user):
         newComment = Reviews(
             item_id=item_id, user_id=current_user.id, comment=comment, rating=rating)
         db.session.add(newComment)
-        db.commit()
+        db.session.commit()
 
         return jsonify({'message': 'Info Updated!'}), 201
 

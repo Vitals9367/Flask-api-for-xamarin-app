@@ -158,6 +158,13 @@ class Reviews(db.Model):
 # --- Schemas -------------------------------------------------------------------------
 
 
+class Item_TypeSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Item_Type
+        sqla_session = db.session
+        load_instance = True
+
+
 class ProductSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Item
@@ -173,6 +180,7 @@ class DefinedItemSchema(ma.SQLAlchemyAutoSchema):
         load_instance = True
         include_relationships = True
     item = ma.Nested(ProductSchema, many=False, exclude=["reviews"])
+    item_type = ma.Nested(Item_TypeSchema, many=False, exclude=["id"])
 
 
 class CartItemSchema(ma.SQLAlchemyAutoSchema):

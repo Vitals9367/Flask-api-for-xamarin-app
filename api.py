@@ -266,10 +266,10 @@ def token_required(f):
 @app.route('/image', methods=['GET'])
 def get_image():
 
-    type = request.args.get('type', None)
+    type_id = request.args.get('type', None)
     photo = request.args.get('photo', None)
 
-    type = Item_Type.query.filter_by(id=type)
+    type = Item_Type.query.filter_by(id=type_id)
 
     url = "img/" + type.name + "/" + photo
     return send_file(url, mimetype='image/gif')

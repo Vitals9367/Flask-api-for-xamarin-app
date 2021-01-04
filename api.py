@@ -269,7 +269,7 @@ def get_image():
     type = request.args.get('type', None)
     photo = request.args.get('photo', None)
 
-    url = "img/" + type + "/" + photo + ".jpg"
+    url = "img/jacket/black.jpg"
     return send_file(url, mimetype='image/gif')
 
 

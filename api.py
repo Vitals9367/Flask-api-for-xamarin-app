@@ -565,7 +565,7 @@ def get_reviews(item_id):
     result = Reviews.query.filter_by(item_id=item_id).all()
 
     if result:
-        schema = ReviewSchema()
+        schema = ReviewSchema(many=True)
         output = schema.dump(result)
 
         return jsonify(output), 200
@@ -589,7 +589,7 @@ def create_review(current_user):
         db.session.add(newComment)
         db.session.commit()
 
-        return jsonify({'message': 'Info Updated!'}), 201
+        return jsonify({'message': 'Comment Written!'}), 201
 
     else:
         return jsonify({'message': 'Server error!'}), 401

@@ -234,6 +234,7 @@ class ReviewSchema(ma.SQLAlchemyAutoSchema):
         model = Reviews
         sqla_session = db.session
         load_instance = True
+        include_relationships = True
 
 # --- Authentication decorator -------------------------------------------------------------------------
 

@@ -243,8 +243,6 @@ class ReviewSchema(ma.SQLAlchemyAutoSchema):
         sqla_session = db.session
         load_instance = True
         include_relationships = True
-    user = ma.Nested(UserSchema, many=False, exclude=[
-                     "id", "public_id", "public_id", "email", "info", "password", "cart", "orders", "reviews", "is_admin"])
 # --- Authentication decorator -------------------------------------------------------------------------
 
 

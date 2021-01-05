@@ -243,6 +243,8 @@ class ReviewSchema(ma.SQLAlchemyAutoSchema):
         sqla_session = db.session
         load_instance = True
         include_relationships = True
+    user = ma.Nested(UserSchema, many=False, exclude=[
+                     "id", "public_id", "public_id", "email", "info", "password", "cart", "orders", "reviews", "is_admin"])
 # --- Authentication decorator -------------------------------------------------------------------------
 
 
@@ -345,6 +347,19 @@ def delete_user_cart_item(current_user):
         return jsonify({"message": "Item not found!"}), 404
 
 # --- Order item Routes ------------------------------------------------------------------------------------
+
+
+@app.route('/api/user/complete_order/<int:order_id>', methods=['PUT'])
+@token_required
+def complete_payment(current_user, order_id):
+
+    result = Orders.query.filter_by(
+        user_id=current_user.id, id=order_id).first()
+
+    schema = OrdersSchema(many=True)
+    output = schema.dump(result)
+
+    return jsonify(output), 200
 
 
 @app.route('/api/user/orders', methods=['GET'])

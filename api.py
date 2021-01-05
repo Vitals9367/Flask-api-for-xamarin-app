@@ -356,10 +356,9 @@ def complete_payment(current_user, order_id):
     result = Orders.query.filter_by(
         user_id=current_user.id, id=order_id).first()
 
-    schema = OrdersSchema(many=True)
-    output = schema.dump(result)
+    result.paid = True
 
-    return jsonify(output), 200
+    return jsonify({"message": "Payment was completed!"}), 200
 
 
 @app.route('/api/user/orders', methods=['GET'])

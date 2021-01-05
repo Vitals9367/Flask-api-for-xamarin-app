@@ -357,6 +357,7 @@ def complete_payment(current_user, order_id):
         user_id=current_user.id, id=order_id).first()
 
     result.paid = True
+    db.session.commit()
 
     return jsonify({"message": "Payment was completed!"}), 200
 

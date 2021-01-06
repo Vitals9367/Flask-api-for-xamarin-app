@@ -482,8 +482,22 @@ def get_product(item_id):
 # --- User Routes ------------------------------------------------------------------------------------
 
 @app.route('/api/users/check/<string:uname>', methods=['GET'])
+@token_required
 def check_user(uname):
     result = User.query.filter_by(username=uname).first()
+
+    if result:
+        schema = UserSchema()
+        output = schema.dump(result)
+
+        return jsonify(output), 200
+    else:
+        return jsonify({'message': 'User not found!'}), 404
+
+
+@app.route('/api/user', methods=['GET'])
+def get_user_details(current_user):
+    result = User.query.filter_by(id=current_user.id).first()
 
     if result:
         schema = UserSchema()

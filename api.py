@@ -575,7 +575,7 @@ def update_info(current_user):
         info.address = data["address"]
         db.session.commit()
 
-        return jsonify({'message': 'Info Updated!'}), 201
+        return jsonify({'message': 'Info Updated!'}), 200
 
     else:
         return jsonify({'message': 'Server error!'}), 401

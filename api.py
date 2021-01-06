@@ -482,7 +482,6 @@ def get_product(item_id):
 # --- User Routes ------------------------------------------------------------------------------------
 
 @app.route('/api/users/check/<string:uname>', methods=['GET'])
-@token_required
 def check_user(uname):
     result = User.query.filter_by(username=uname).first()
 
@@ -496,6 +495,7 @@ def check_user(uname):
 
 
 @app.route('/api/user', methods=['GET'])
+@token_required
 def get_user_details(current_user):
     result = User.query.filter_by(id=current_user.id).first()
 

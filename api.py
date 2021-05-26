@@ -21,10 +21,10 @@ import jwt
 app = Flask(__name__)
 api = Api(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ejgwszmtjbkudt:3f0e8fb8919e2d1237698be4caa2196fcdf52d380381701ac474767b6eb1d225@ec2-63-34-97-163.eu-west-1.compute.amazonaws.com:5432/d61ae8b2jon7st"
+app.config['SQLALCHEMY_DATABASE_URI'] = "your database"
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SECRET_KEY'] = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
+app.config['SECRET_KEY'] = 'secret af'
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)

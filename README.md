@@ -3,7 +3,7 @@
 Made during third semester of my studies at Kaunas University of Applied Sciences.<br/>
 
 Connected to same database as Flask eShop.<br/>
-🔗 [Flask eShop](https://github.com/Vitals9367/Flask_eshop).
+🔗 [Flask eShop](https://github.com/Vitals9367/Flask_eshop)<br/>
 🔗 [Xamarin Mobile App](https://github.com/Vitals9367/Xamarin_eshop_app)
 
 ***Mobile App ->*** Xamarin XML templates, business logic<br/>

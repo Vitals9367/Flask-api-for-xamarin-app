@@ -12,4 +12,29 @@ Connected to same database as Flask eShop.<br/>
 ***Hosting ->*** Heroku<br/>
 ***Payments ->*** Stripe<br/>
 
-🔌 [Example Endpoint](https://flaskeshopapi.herokuapp.com/api/products)
+🔌 [Example Endpoint](https://flaskeshopapi.herokuapp.com/api/products)<br/>
+
+***Endpoints:***
+- /image
+- /api/user/defined_items
+- /api/user/cart_items
+- /api/user/add/cart_items/<int:item_id>
+- /test
+- /api/user/delete_cart_item
+- /api/user/complete_order/<int:order_id>
+- /api/user/orders
+- /api/user/delete_order
+- /api/delete_orders
+- /api/user/create_order
+- /api/products
+- /api/product/addtocart
+- /api/product/<int:item_id>
+- /api/users/check/<string:uname>
+- /api/user
+- /api/user/<string:public_id>
+- /api/users
+- /api/user_info
+- /api/user_info/update
+- /api/reviews/product/<int:item_id>
+- /api/create_review
+- /login

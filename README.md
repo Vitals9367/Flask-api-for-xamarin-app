@@ -1,4 +1,4 @@
-# Xamarin Eshop Mobile App API#
+# Xamarin Eshop Mobile App API #
 🛒 Ecommerce app made with Xamarin.Forms framework.<br/>
 Made during third semester of my studies at Kaunas University of Applied Sciences.<br/>
 
